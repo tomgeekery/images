@@ -1,6 +1,11 @@
 <template>
   <div>
-    <img v-for="image in allImages" :src="image.link">
+    <div v-if="isLoggedIn">
+      <div class="image-container">
+        <img v-for="image in allImages" :src="image.link">
+      </div>
+    </div>
+    <h2 v-else>Log in to get started!</h2>
   </div>
 </template>
 
@@ -10,7 +15,7 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "ImageList",
   computed: {
-    ...mapGetters(["allImages"])
+    ...mapGetters(["allImages", "isLoggedIn"])
   },
   methods: {
     ...mapActions(["fetchImages"])
@@ -20,3 +25,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.image-container {
+  column-count: 3;
+  column-gap: 0;
+}
+img {
+  max-width: 100%;
+  padding: 5px;
+}
+</style>
